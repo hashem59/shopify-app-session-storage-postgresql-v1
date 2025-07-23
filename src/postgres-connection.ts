@@ -87,14 +87,14 @@ export class PostgresConnection implements RdbmsConnection {
   }
 
   private async init(): Promise<void> {
-    if (typeof this.dbUrl === "string" && this.dbUrl.includes("/cloudsql//")) {
+    if (typeof this.dbUrl === "string" && this.dbUrl.includes("/cloudsql/")) {
       this.dbUrl = new URL(this.dbUrl);
       this.pool = new pg.Pool({
         host: "",
         user: decodeURIComponent(this.dbUrl.username),
         password: decodeURIComponent(this.dbUrl.password),
         database: this.getDatabase(),
-        port: Number(this.dbUrl.port),
+        //port: Number(this.dbUrl.port),
       });
     } else {
       this.pool = new pg.Pool({
